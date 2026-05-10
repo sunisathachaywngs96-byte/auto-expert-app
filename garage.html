@@ -1,1 +1,272 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Auto Expert Garage</title>
+
+<style>
+
+body{
+  font-family:sans-serif;
+  background:#0f172a;
+  color:white;
+  padding:20px;
+}
+
+h1{
+  color:#22c55e;
+}
+
+.card{
+  background:#1e293b;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+  border:none;
+  border-radius:8px;
+}
+
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  margin-top:5px;
+}
+
+.add{
+  background:#22c55e;
+  color:black;
+  font-weight:bold;
+}
+
+.waiting{
+  background:orange;
+  color:white;
+}
+
+.fixing{
+  background:#3b82f6;
+  color:white;
+}
+
+.done{
+  background:#22c55e;
+  color:black;
+}
+
+.delete{
+  background:red;
+  color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🚗 Auto Expert Garage</h1>
+
+<div class="card">
+
+<input id="car" placeholder="ชื่อรถ">
+
+<input id="plate" placeholder="ทะเบียน">
+
+<input id="customer" placeholder="ชื่อลูกค้า">
+
+<input id="phone" placeholder="เบอร์โทร">
+
+<input id="problem" placeholder="อาการเสีย">
+
+<input id="price" type="number" placeholder="ราคา">
+
+<button class="add" onclick="addJob()">
+เพิ่มงานซ่อม
+</button>
+
+</div>
+
+<h2>📋 รายการซ่อม</h2>
+
+<div id="list">
+กำลังโหลด...
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+query,
+orderBy,
+onSnapshot,
+doc,
+updateDoc,
+deleteDoc,
+serverTimestamp
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBv0KDGVm_qiNO3_XUk746ONnRPYEExXvU",
+
+authDomain: "auto-expert-app.firebaseapp.com",
+
+projectId: "auto-expert-app",
+
+storageBucket: "auto-expert-app.firebasestorage.app",
+
+messagingSenderId: "426422848055",
+
+appId: "1:426422848055:web:83ff5c4100b94674710db2",
+
+measurementId: "G-RZSKC4F1DR"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const listBox = document.getElementById("list");
+
+window.addJob = async () => {
+
+  try{
+
+    await addDoc(collection(db,"jobs"),{
+
+      car: document.getElementById("car").value,
+
+      plate: document.getElementById("plate").value,
+
+      customer: document.getElementById("customer").value,
+
+      phone: document.getElementById("phone").value,
+
+      problem: document.getElementById("problem").value,
+
+      price: Number(document.getElementById("price").value),
+
+      status:"รอซ่อม",
+
+      createdAt: serverTimestamp()
+
+    });
+
+    alert("✅ บันทึกสำเร็จ");
+
+  }catch(e){
+
+    alert("❌ "+e.message);
+
+  }
+
+};
+
+const q = query(
+collection(db,"jobs"),
+orderBy("createdAt","desc")
+);
+
+onSnapshot(q,(snapshot)=>{
+
+  listBox.innerHTML="";
+
+  if(snapshot.empty){
+
+    listBox.innerHTML="ไม่มีข้อมูล";
+
+    return;
+
+  }
+
+  snapshot.forEach((docSnap)=>{
+
+    const d = docSnap.data();
+
+    const id = docSnap.id;
+
+    listBox.innerHTML += `
+
+    <div class="card">
+
+      <h3>🚘 ${d.car}</h3>
+
+      <p>📌 ${d.plate}</p>
+
+      <p>👤 ${d.customer}</p>
+
+      <p>📞 ${d.phone}</p>
+
+      <p>🔧 ${d.problem}</p>
+
+      <p>💰 ${d.price} บาท</p>
+
+      <p>📊 ${d.status}</p>
+
+      <button class="waiting"
+      onclick="setStatus('${id}','รอซ่อม')">
+      รอซ่อม
+      </button>
+
+      <button class="fixing"
+      onclick="setStatus('${id}','กำลังซ่อม')">
+      กำลังซ่อม
+      </button>
+
+      <button class="done"
+      onclick="setStatus('${id}','ซ่อมเสร็จ')">
+      เสร็จ
+      </button>
+
+      <button class="delete"
+      onclick="delJob('${id}')">
+      ลบ
+      </button>
+
+    </div>
+
+    `;
+
+  });
+
+});
+
+window.setStatus = async(id,status)=>{
+
+  await updateDoc(doc(db,"jobs",id),{
+
+    status:status
+
+  });
+
+};
+
+window.delJob = async(id)=>{
+
+  if(confirm("ลบรายการนี้?")){
+
+    await deleteDoc(doc(db,"jobs",id));
+
+  }
+
+};
+
+</script>
+
+</body>
+</html>
