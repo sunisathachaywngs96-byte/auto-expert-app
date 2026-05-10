@@ -702,6 +702,35 @@ window.saveRepair = async function () {
 
     <!-- CAR CARD -->
     <div class="car-card">
+      <!-- ฟอร์มแก้ไขข้อมูลรถ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">แก้ไขข้อมูลรถลูกค้า</div>
+  </div>
+
+  <div class="stat-card" style="display:block; padding:20px;">
+
+    <div class="form-group">
+      <label class="form-label">ชื่อรถ</label>
+      <input id="carName" class="form-input" placeholder="Toyota Altis">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">ทะเบียนรถ</label>
+      <input id="plate" class="form-input" placeholder="กจ 1234">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">เลขไมล์</label>
+      <input id="mileage" class="form-input" placeholder="78560">
+    </div>
+
+    <button class="modal-btn" onclick="saveCarData()">
+      💾 บันทึกข้อมูลรถ
+    </button>
+
+  </div>
+</div>
       <div class="car-info">
         <div class="car-model">Toyota Altis</div>
         <div class="car-variant">1.6 G AT 2019</div>
