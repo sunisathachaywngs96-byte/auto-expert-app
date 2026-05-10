@@ -572,6 +572,55 @@ const analytics = getAnalytics(app);
     .repair-item { flex-wrap: wrap; }
   }
 </style>
+  <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDAfm7eDJPFiWrUK_U0aqS7yl2Wt_PpjmA",
+  authDomain: "garage-system-41587.firebaseapp.com",
+  projectId: "garage-system-41587",
+  storageBucket: "garage-system-41587.firebasestorage.app",
+  messagingSenderId: "688480145767",
+  appId: "1:688480145767:web:9bfba3df045ca434d91fc2",
+  measurementId: "G-30329DLNXE"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveRepair = async function () {
+
+  try {
+
+    await addDoc(collection(db, "repairs"), {
+      car: "Toyota Altis",
+      detail: "เปลี่ยนน้ำมันเครื่อง",
+      price: 2500,
+      createdAt: new Date()
+    });
+
+    alert("✅ บันทึกสำเร็จ");
+
+  } catch (error) {
+
+    console.error(error);
+    alert("❌ บันทึกไม่สำเร็จ");
+
+  }
+
+};
+
+</script>
+
+</body>
+</html>
 </head>
 <body>
 
