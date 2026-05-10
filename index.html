@@ -618,7 +618,47 @@ window.saveRepair = async function () {
 };
 
 </script>
+<script>
+function saveCarData() {
 
+  const carName = document.getElementById('carName').value;
+  const plate = document.getElementById('plate').value;
+  const mileage = document.getElementById('mileage').value;
+
+  localStorage.setItem('carName', carName);
+  localStorage.setItem('plate', plate);
+  localStorage.setItem('mileage', mileage);
+
+  alert('บันทึกข้อมูลรถแล้ว ✅');
+
+  loadCarData();
+}
+
+function loadCarData() {
+
+  const carName = localStorage.getItem('carName');
+  const plate = localStorage.getItem('plate');
+  const mileage = localStorage.getItem('mileage');
+
+  if(carName){
+    document.querySelector('.car-model').innerText = carName;
+  }
+
+  if(plate){
+    document.querySelector('.plate-tag').innerText = '🚘 ' + plate;
+  }
+
+  if(mileage){
+    document.querySelector('.stat-value').innerText = mileage + ' กม.';
+  }
+
+  document.getElementById('carName').value = carName || '';
+  document.getElementById('plate').value = plate || '';
+  document.getElementById('mileage').value = mileage || '';
+}
+
+loadCarData();
+</script>
 </body>
 </html>
 </head>
