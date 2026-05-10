@@ -26,27 +26,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDAfm7eDJPFiWrUK_U0aqS7yl2Wt_PpjmA",
-  authDomain: "garage-system-41587.firebaseapp.com",
-  projectId: "garage-system-41587",
-  storageBucket: "garage-system-41587.firebasestorage.app",
-  messagingSenderId: "688480145767",
-  appId: "1:688480145767:web:9bfba3df045ca434d91fc2",
-  measurementId: "G-30329DLNXE"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
   body {
     font-family: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
     background: var(--bg-primary);
@@ -572,180 +552,6 @@ const analytics = getAnalytics(app);
     .repair-item { flex-wrap: wrap; }
   }
 </style>
-  <script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDAfm7eDJPFiWrUK_U0aqS7yl2Wt_PpjmA",
-  authDomain: "garage-system-41587.firebaseapp.com",
-  projectId: "garage-system-41587",
-  storageBucket: "garage-system-41587.firebasestorage.app",
-  messagingSenderId: "688480145767",
-  appId: "1:688480145767:web:9bfba3df045ca434d91fc2",
-  measurementId: "G-30329DLNXE"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.saveRepair = async function () {
-
-  try {
-
-    await addDoc(collection(db, "repairs"), {
-      car: "Toyota Altis",
-      detail: "เปลี่ยนน้ำมันเครื่อง",
-      price: 2500,
-      createdAt: new Date()
-    });
-
-    alert("✅ บันทึกสำเร็จ");
-
-  } catch (error) {
-
-    console.error(error);
-    alert("❌ บันทึกไม่สำเร็จ");
-
-  }
-
-};
-
-</script>
-<script>
-function saveCarData() {
-
-  const carName = document.getElementById('carName').value;
-  const plate = document.getElementById('plate').value;
-  const mileage = document.getElementById('mileage').value;
-
-  localStorage.setItem('carName', carName);
-  localStorage.setItem('plate', plate);
-  localStorage.setItem('mileage', mileage);
-
-  alert('บันทึกข้อมูลรถแล้ว ✅');
-
-  loadCarData();
-}
-
-function loadCarData() {
-
-  const carName = localStorage.getItem('carName');
-  const plate = localStorage.getItem('plate');
-  const mileage = localStorage.getItem('mileage');
-
-  if(carName){
-    document.querySelector('.car-model').innerText = carName;
-  }
-
-  if(plate){
-    document.querySelector('.plate-tag').innerText = '🚘 ' + plate;
-  }
-
-  if(mileage){
-    document.querySelector('.stat-value').innerText = mileage + ' กม.';
-  }
-
-  document.getElementById('carName').value = carName || '';
-  document.getElementById('plate').value = plate || '';
-  document.getElementById('mileage').value = mileage || '';
-}
-
-loadCarData();
-</script>
-  <script>
-function saveCarData() {
-
-  const carName = document.getElementById('carName').value;
-  const plate = document.getElementById('plate').value;
-  const mileage = document.getElementById('mileage').value;
-
-  localStorage.setItem('carName', carName);
-  localStorage.setItem('plate', plate);
-  localStorage.setItem('mileage', mileage);
-
-  alert('บันทึกข้อมูลรถแล้ว ✅');
-
-  loadCarData();
-}
-
-function loadCarData() {
-
-  const carName = localStorage.getItem('carName');
-  const plate = localStorage.getItem('plate');
-  const mileage = localStorage.getItem('mileage');
-
-  if(carName){
-    document.querySelector('.car-model').innerText = carName;
-  }
-
-  if(plate){
-    document.querySelector('.plate-tag').innerText = '🚘 ' + plate;
-  }
-
-  if(mileage){
-    document.querySelector('.stat-value').innerText = mileage + ' กม.';
-  }
-
-  document.getElementById('carName').value = carName || '';
-  document.getElementById('plate').value = plate || '';
-  document.getElementById('mileage').value = mileage || '';
-}
-
-loadCarData();
-</script<
-  <script>
-function saveCarData() {
-
-  const carName = document.getElementById('carName').value;
-  const plate = document.getElementById('plate').value;
-  const mileage = document.getElementById('mileage').value;
-
-  localStorage.setItem('carName', carName);
-  localStorage.setItem('plate', plate);
-  localStorage.setItem('mileage', mileage);
-
-  alert('บันทึกข้อมูลรถแล้ว ✅');
-
-  loadCarData();
-}
-
-function loadCarData() {
-
-  const carName = localStorage.getItem('carName');
-  const plate = localStorage.getItem('plate');
-  const mileage = localStorage.getItem('mileage');
-
-  if(carName){
-    document.querySelector('.car-model').innerText = carName;
-  }
-
-  if(plate){
-    document.querySelector('.plate-tag').innerText = '🚘 ' + plate;
-  }
-
-  if(mileage){
-    document.querySelector('.stat-value').innerText = mileage + ' กม.';
-  }
-
-  document.getElementById('carName').value = carName || '';
-  document.getElementById('plate').value = plate || '';
-  document.getElementById('mileage').value = mileage || '';
-}
-
-loadCarData();
-</script>
-
-</body>
-</html>
-</body>
-</html>
 </head>
 <body>
 
@@ -764,9 +570,6 @@ loadCarData();
       <div class="nav-item active" onclick="setNav(this, 'home')">
         <span class="nav-icon">🏠</span> หน้าหลัก
       </div>
-      <button onclick="saveRepair()">
-บันทึกประวัติซ่อม
-      </button>
       <div class="nav-item" onclick="setNav(this, 'car')">
         <span class="nav-icon">🚘</span> รถของฉัน
       </div>
@@ -806,7 +609,7 @@ loadCarData();
   <!-- TOPBAR -->
   <header class="topbar">
     <div class="greeting-section">
-      <div class="greeting-title">สวัสดี คุณ ส้ม👋</div>
+      <div class="greeting-title">สวัสดี คุณเจียบ 👋</div>
       <div class="greeting-sub">ดูแลรถของคุณให้พร้อมใช้งานเสมอ</div>
     </div>
     <div class="topbar-right">
@@ -815,8 +618,8 @@ loadCarData();
         <span class="notif-badge">3</span>
       </div>
       <div class="user-chip">
-        <div class="user-avatar">ส</div>
-        <span class="user-name">คุณส้ม</span>
+        <div class="user-avatar">จ</div>
+        <span class="user-name">คุณเจียบ</span>
         <span style="color:var(--text-secondary)">▾</span>
       </div>
     </div>
@@ -827,35 +630,6 @@ loadCarData();
 
     <!-- CAR CARD -->
     <div class="car-card">
-      <!-- ฟอร์มแก้ไขข้อมูลรถ -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-title">แก้ไขข้อมูลรถลูกค้า</div>
-  </div>
-
-  <div class="stat-card" style="display:block; padding:20px;">
-
-    <div class="form-group">
-      <label class="form-label">ชื่อรถ</label>
-      <input id="carName" class="form-input" placeholder="Toyota Altis">
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">ทะเบียนรถ</label>
-      <input id="plate" class="form-input" placeholder="กจ 1234">
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">เลขไมล์</label>
-      <input id="mileage" class="form-input" placeholder="78560">
-    </div>
-
-    <button class="modal-btn" onclick="saveCarData()">
-      💾 บันทึกข้อมูลรถ
-    </button>
-
-  </div>
-</div>
       <div class="car-info">
         <div class="car-model">Toyota Altis</div>
         <div class="car-variant">1.6 G AT 2019</div>
@@ -897,7 +671,10 @@ loadCarData();
         <div class="stat-card-body">
           <div class="stat-card-label">ค่าใช้จ่ายรวมปีนี้</div>
           <div
-               </div>
+            <div class="stat-card-value" style="color:var(--accent-green)">24,650</div>
+          <div class="stat-card-unit">บาท</div>
+        </div>
+      </div>
       <div class="stat-card">
         <div class="stat-card-icon" style="background:rgba(59,130,246,0.15)">🔧</div>
         <div class="stat-card-body">
@@ -1230,4 +1007,4 @@ renderAlerts();
 document.getElementById('repairDate').value = new Date().toISOString().split('T')[0];
 </script>
 </body>
-      </html>
+</html>
